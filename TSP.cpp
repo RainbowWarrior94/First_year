@@ -72,18 +72,18 @@ int main()
    return 0;
 }
 
-bool Exist(int *T, int n, int x)
+bool Exist(int *T, int n, int x)                                 //a function that is responsible for ensuring that a route passes through an x-city only once
 
     {for (int j=0; j<n; j++) if (T[j]==x) return true;
      return false;}
 
-void Nearest_Neighbor(int **D, int n, string *cities)
+void Nearest_Neighbor(int **D, int n, string *cities)            //a function that implements the nearest neighbor algorithm 
 
     {int start_2, start, s, L=0;
-     int *T=new int[n];
+     int *T=new int[n];                                          //memory allocation for the dynamic array
      char choise='Y';
 
-      for (int i=0; i<n; i++) T[i]=-1;
+      for (int i=0; i<n; i++) T[i]=-1;                           //a one-dimensional dynamic array is created and filled with the value "-1"  
 
     cout<<"Select a starting point: ";
     cin>>start;
@@ -95,14 +95,14 @@ void Nearest_Neighbor(int **D, int n, string *cities)
 
      D[s][s]=0;
 
-      for (int j=0; j<n; j++)
+      for (int j=0; j<n; j++)                                    //going through each j-row of the matrix 
          {int min; bool first=true;
 
           T[j]=s;
-        for (int i=0; i<n; i++)
-           {if (Exist(T,n,i)==false)
+        for (int i=0; i<n; i++)                                  //going through each i-element of the j-row of the matrix
+           {if (Exist(T,n,i)==false)                             //check if the road ran through the i-city
               {if (first==true) {min=i; first=false;}
-               if (D[s][min]>D[s][i] && j!=n-1) min=i;}}
+               if (D[s][min]>D[s][i] && j!=n-1) min=i;}}         //search for a minimal i-element
 
         if (j!=n) s=min;}
 
@@ -124,6 +124,6 @@ void Nearest_Neighbor(int **D, int n, string *cities)
      { for (int i=0; i<n; i++)
          {cout<<"From "<<cities[T[i]]<<" to "<<cities[T[i+1]]<<" = "<<D[T[i]][ T[i+1]]<<" km"<<endl;}}
 
-    delete[] T;
+    delete[] T;                                                  //memory deallocation from a dynamic array
 }
 
